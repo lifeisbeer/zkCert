@@ -71,13 +71,13 @@ template Cert(nLevels) {
 
     // calculate app id
     component CalculateAppId = CalculateAppId();
-    CalculateAppId.userSecret <== CalculateAppId.out;
+    CalculateAppId.userId <== CalculateUserId.out;
     CalculateAppId.appSalt <== appSalt;
     CalculateAppId.grade <== grade;
 
     // calculate root using the app id as leaf
     component inclusionProof = MerkleTreeInclusionProof(nLevels);
-    inclusionProof.leaf <== CalculateAppSecret.out;
+    inclusionProof.leaf <== CalculateAppId.out;
 
     for (var i = 0; i < nLevels; i++) {
         inclusionProof.siblings[i] <== treeSiblings[i];
@@ -97,4 +97,4 @@ template Cert(nLevels) {
     less.out === 1; // 1 if minGrade <= grade, 0 otherwise
 }
 
-component main {public [pubRoot, minGrade]} = Semaphore(20);
+component main {public [pubRoot, minGrade]} = Cert(20);

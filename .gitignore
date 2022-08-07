@@ -1,5 +1,7 @@
 .vscode
 
+circuits/Cert
+
 node_modules
 .env
 coverage
