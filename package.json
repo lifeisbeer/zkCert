@@ -1,0 +1,31 @@
+{
+  "name": "zkcert",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lifeisbeer/zkCert.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lifeisbeer/zkCert/issues"
+  },
+  "homepage": "https://github.com/lifeisbeer/zkCert#readme",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "hardhat": "^2.10.1"
+  },
+  "overrides": {
+    "got": "^12.1.0"
+  },
+  "dependencies": {
+    "@semaphore-protocol/contracts": "^2.0.0",
+    "circomlib": "^2.0.5"
+  }
+}
