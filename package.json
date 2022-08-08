@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": ". scripts/compile_circuit.sh && node scripts/bump-solidity.js",
+    "test": "npx hardhat test"
   },
   "repository": {
     "type": "git",

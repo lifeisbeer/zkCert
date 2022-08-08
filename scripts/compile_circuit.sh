@@ -27,4 +27,6 @@ snarkjs zkey export verificationkey Cert/circuit_final.zkey Cert/verification_ke
 # generate solidity contract
 snarkjs zkey export solidityverifier Cert/circuit_final.zkey ../contracts/CertVerifier.sol
 
+echo "Circuits done."
+
 cd ..

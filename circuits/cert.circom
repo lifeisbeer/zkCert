@@ -47,6 +47,22 @@ template CalculateAppId() {
     out <== poseidon.out;
 }
 
+// the nullifier is used to prevent double spending, the nullifier is:
+// the hash of the app id and a nonce which can be a random number
+template CalculateNullifier() {
+    signal input appId;
+    signal input nonce;
+
+    signal output out;
+
+    component poseidon = Poseidon(2);
+
+    poseidon.inputs[0] <== appId;
+    poseidon.inputs[1] <== nonce;
+
+    out <== poseidon.out;
+}
+
 // nLevels must be < 32.
 template Cert(nLevels) {
     // private inputs
@@ -54,10 +70,12 @@ template Cert(nLevels) {
     signal input userSalt;
     signal input appSalt;
     signal input grade;
+    signal input nonce;
     signal input treePathIndices[nLevels];
     signal input treeSiblings[nLevels];
 
     // public inputs
+    signal input nullifier;
     signal input pubRoot;
     signal input minGrade; // in the case where the certificate doesn't contain a grade, the minGrade is set to zero
 
@@ -74,10 +92,17 @@ template Cert(nLevels) {
     CalculateAppId.userId <== CalculateUserId.out;
     CalculateAppId.appSalt <== appSalt;
     CalculateAppId.grade <== grade;
+    signal appId <== CalculateAppId.out;
+
+    // calculate and verify nullifier
+    component CalculateNullifier = CalculateNullifier();
+    CalculateNullifier.appId <== appId;
+    CalculateNullifier.nonce <== nonce;
+    nullifier === CalculateNullifier.out;
 
     // calculate root using the app id as leaf
     component inclusionProof = MerkleTreeInclusionProof(nLevels);
-    inclusionProof.leaf <== CalculateAppId.out;
+    inclusionProof.leaf <== appId;
 
     for (var i = 0; i < nLevels; i++) {
         inclusionProof.siblings[i] <== treeSiblings[i];
