@@ -6,7 +6,7 @@ const verifierRegex = /contract Verifier/ // this is for the verifier contract n
 console.log("Bumping solidity version...");
 
 let content = fs.readFileSync("./contracts/CertVerifier.sol", { encoding: 'utf-8' });
-let bumped = content.replace(solidityRegex, 'pragma solidity ^0.8.0');
+let bumped = content.replace(solidityRegex, 'pragma solidity ^0.8.9');
 bumped = bumped.replace(verifierRegex, 'contract CertVerifier');
 
 fs.writeFileSync("./contracts/CertVerifier.sol", bumped);

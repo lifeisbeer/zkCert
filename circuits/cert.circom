@@ -122,4 +122,4 @@ template Cert(nLevels) {
     less.out === 1; // 1 if minGrade <= grade, 0 otherwise
 }
 
-component main {public [pubRoot, minGrade]} = Cert(20);
+component main {public [nullifier, pubRoot, minGrade]} = Cert(31);

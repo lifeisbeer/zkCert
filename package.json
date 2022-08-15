@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@semaphore-protocol/contracts": "^2.0.0",
+    "@zk-kit/incremental-merkle-tree.sol": "^1.2.0",
     "circomlib": "^2.0.5"
   }
 }
