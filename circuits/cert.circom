@@ -76,7 +76,6 @@ template Cert(nLevels) {
 
     // public inputs
     signal input nullifier;
-    signal input pubRoot;
     signal input minGrade; // in the case where the certificate doesn't contain a grade, the minGrade is set to zero
 
     // outputs
@@ -111,9 +110,6 @@ template Cert(nLevels) {
 
     root <== inclusionProof.root;
 
-    // verify root
-    pubRoot === root;
-
     // verify that the grade is at least the minimum grade, 
     // or that 0 = 0 if the certificate doesn't contain a grade
     component less = LessEqThan(10); // 10 bits, range: 0 - 1023
@@ -122,4 +118,4 @@ template Cert(nLevels) {
     less.out === 1; // 1 if minGrade <= grade, 0 otherwise
 }
 
-component main {public [nullifier, pubRoot, minGrade]} = Cert(31);
+component main {public [nullifier, minGrade]} = Cert(10);
