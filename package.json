@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "compile": ". scripts/compile_circuit.sh && node scripts/bump-solidity.js",
+    "compile_circ": ". scripts/compile_circuit.sh && node scripts/bump-solidity.js",
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat run scripts/deploy_contracts.js",
     "test": "npx hardhat test"
   },
   "repository": {
@@ -28,6 +30,7 @@
   "dependencies": {
     "@semaphore-protocol/contracts": "^2.0.0",
     "@zk-kit/incremental-merkle-tree.sol": "^1.2.0",
-    "circomlib": "^2.0.5"
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7"
   }
 }

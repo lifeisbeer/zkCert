@@ -105,6 +105,16 @@ contract Cert {
         groupId += 1;
     }
 
+    /// @dev get the hash of a given index of a given group Merkle tree
+    /// @param gId: group id number
+    /// @param index: index of Merkle tree
+    // function getIndex(
+    //     uint256 gId, 
+    //     uint256 index 
+    // ) external {
+    //     groups[gId]
+    // }
+
     /// @dev update group admin
     /// @param gId: group id number
     /// @param newAdmin: future admin of the group

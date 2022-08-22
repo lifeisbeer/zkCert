@@ -118,4 +118,4 @@ template Cert(nLevels) {
     less.out === 1; // 1 if minGrade <= grade, 0 otherwise
 }
 
-component main {public [nullifier, minGrade]} = Cert(10);
+component main {public [nullifier, minGrade]} = Cert(10); // Cert(10): Merkle tree with 10 levels
