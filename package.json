@@ -1,0 +1,47 @@
+{
+  "name": "zkCert",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lifeisbeer/zkCert.git",
+  "author": "Theo <tc17231@bristol.ac.uk>",
+  "license": "MIT",
+  "description": "Digital certificates on blockchain using ZKPs",
+  "scripts": {
+    "compile_circ": ". scripts/compile_circuit.sh && node scripts/bump-solidity.js",
+    "test_circ": "mocha test",
+    "compile": "yarn hardhat compile",
+    "deploy": "yarn hardhat run scripts/deploy_contracts.js",
+    "test": "yarn hardhat test"
+  },
+  "dependencies": {
+    "circom_tester": "^0.0.14",
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
+    "snarkjs": "^0.4.24"
+  },
+  "devDependencies": {
+    "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/bytes": "^5.7.0",
+    "@ethersproject/providers": "^5.7.0",
+    "@nomicfoundation/hardhat-chai-matchers": "^1.0.3",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.4",
+    "@nomicfoundation/hardhat-toolbox": "^1.0.2",
+    "@nomiclabs/hardhat-ethers": "^2.1.1",
+    "@nomiclabs/hardhat-etherscan": "^3.1.0",
+    "@typechain/ethers-v5": "^10.1.0",
+    "@typechain/hardhat": "^6.1.2",
+    "@types/chai": "^4.3.3",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^18.7.13",
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.1",
+    "ethers": "^5.7.0",
+    "hardhat": "^2.10.2",
+    "hardhat-gas-reporter": "^1.0.8",
+    "mocha": "^10.0.0",
+    "solidity-coverage": "^0.7.21",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.1.0",
+    "typescript": "^4.7.4"
+  }
+}
