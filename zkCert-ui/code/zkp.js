@@ -1,6 +1,6 @@
 import { exportCallDataGroth16 } from "./genCalldata.js";
 
-export async function sudokuCalldata(password, userSalt, appSalt, grade, nonce, pathIndices, siblings, nullifier, minGrade) {
+export async function certCalldata(password, userSalt, appSalt, grade, nonce, pathIndices, siblings, nullifier, minGrade) {
     const INPUT = {
         password: password,
         userSalt: userSalt,

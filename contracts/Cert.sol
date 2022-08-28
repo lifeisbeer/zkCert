@@ -12,10 +12,18 @@ contract Cert {
 
     CertVerifier public verifier;
 
+    struct Proofs {
+        uint256 groupId;
+        uint256 grade;
+        string ref;
+    }    
+
     mapping(uint256 => IncrementalTreeData) internal groups;
     mapping(uint256 => string) public groupDescription;
     mapping(uint256 => address) public groupAdmins;
-    mapping(uint256 => bool) internal nullifierHashes;
+    mapping(uint256 => mapping(uint256 => uint256)) internal userIndex; // groupID -> appId -> index
+    mapping(uint256 => mapping(uint256 => bool)) internal nullifierHashes; // groupID -> nullifierHash -> bool
+    mapping(address => Proofs[]) public proofs;
 
     uint256 constant SNARK_SCALAR_FIELD = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
     uint8 constant DEPTH = 10;
@@ -136,6 +144,13 @@ contract Cert {
         return groups[gId].nextIndex;
     }
 
+    function getIndexFromAppId(
+        uint gId, 
+        uint256 appId
+    ) external view returns (uint256) {
+        return userIndex[gId][appId];
+    }
+
     /// @dev get the element of a given index of a given group Merkle tree
     /// @param gId: group id number
     /// @param index: index of Merkle tree
@@ -211,7 +226,11 @@ contract Cert {
             revert GroupDoesNotExist();
         }
 
+        uint256 index = groups[gId].nextIndex;
+
         groups[gId].insert(appId);
+
+        userIndex[gId][appId] = index;
 
         uint256 root = getRoot(gId);
 
@@ -258,12 +277,13 @@ contract Cert {
 
     function _removeMember(
         uint256 gId,
-        uint256 appId,
-        uint256 index
+        uint256 appId
     ) internal {
         if (getDepth(gId) == 0) {
             revert GroupDoesNotExist();
         }
+
+        uint256 index = userIndex[gId][appId];
 
         groups[gId].remove(index);
 
@@ -275,13 +295,11 @@ contract Cert {
     /// @dev remove an existing member from a group
     /// @param gId: group id number
     /// @param appId: the application id of a user
-    /// @param index: index of the user in the Merkle tree
     function removeMember(
         uint256 gId,
-        uint256 appId,
-        uint256 index
+        uint256 appId
     ) external onlyGroupAdmin(gId) {
-        _removeMember(gId, appId, index);
+        _removeMember(gId, appId);
     }
 
     function _verifyProof(
@@ -290,10 +308,6 @@ contract Cert {
         uint256 minGrade,
         uint256[8] calldata proof
     ) internal view returns (bool) {
-        if (nullifierHashes[nullifier]) {
-            revert UsingTheSameNullifier();
-        }
-
         return verifier.verifyProof(
             [proof[0], proof[1]],
             [[proof[2], proof[3]], [proof[4], proof[5]]],
@@ -302,8 +316,11 @@ contract Cert {
         );
     }
 
-    function _saveNullifierHash(uint256 nullifier) internal {
-        nullifierHashes[nullifier] = true;
+    function _saveNullifierHash(
+        uint256 gId,
+        uint256 nullifier
+    ) internal {
+        nullifierHashes[gId][nullifier] = true;
     }
 
     /// @dev create new group
@@ -312,15 +329,21 @@ contract Cert {
     /// @param minGrade: minimum grade checked in the proof
     /// @param proof: zero-knowledge proof data
     /// @param recipient: person who the proof is targeted at
+    /// @param ref: reference for proof 
     function verifyProof(
         uint256 gId,
         uint256 nullifier,
         uint256 minGrade,
         uint256[8] calldata proof,
-        address recipient
+        address recipient,
+        string calldata ref
     ) external {
         if (getDepth(gId) == 0) {
             revert GroupDoesNotExist();
+        }
+
+        if (nullifierHashes[gId][nullifier]) {
+            revert UsingTheSameNullifier();
         }
 
         uint256 root = getRoot(gId);
@@ -331,8 +354,10 @@ contract Cert {
             revert InvalidProof();
         }
 
-        _saveNullifierHash(nullifier);
+        _saveNullifierHash(gId, nullifier);
 
-        emit ProofVerified(gId, recipient, minGrade);      
+        emit ProofVerified(gId, recipient, minGrade); 
+
+        proofs[recipient].push(Proofs(gId, minGrade, ref));
     }
 }
