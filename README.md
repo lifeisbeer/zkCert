@@ -29,7 +29,7 @@ Moving to the Holder, you get two functions on the front-end:
 Finally the Verifier has one function:
 1) You can check for proofs that are directed to your address in the smart contract and see their details.
 
-[//]: # (For a demonstration please check the demo video at: )
+For a demonstration please check the demo video at: https://youtu.be/QaeJ9MyzT_g
 
 ## Run locally
 
@@ -39,7 +39,7 @@ To run zkCert locally:
 1) First clone the repository,
 2) Then cd into the project folder,
 3) Run `yard` to install everything,
-4) cd into the front-end folder (`"zkCert-ui"`),
+4) cd into the front-end folder (*"zkCert-ui"*),
 5) Run `yard` to install everything related to the front-end.
 
 ### Front-end:
@@ -49,10 +49,10 @@ yarn dev
 ```
 The output will be available at http://localhost:3000/
 
-This front-end will interact with the contract deployed at the address specified in `"code/contractAddress.json"` file and the network specified in `"code/contractAddress.json"` file. In case you deploy the contract elsewhere, you will need to update these. If you make any changes to the smart contract make sure to also update the `"code/Cert.json"` file. 
+This front-end will interact with the contract deployed at the address specified in *"code/contractAddress.json"* file and the network specified in *"code/contractAddress.json"* file. In case you deploy the contract elsewhere, you will need to update these. If you make any changes to the smart contract make sure to also update the *"code/Cert.json"* file. 
 
 ### Circuits:
-Going back to the main folder (`cd ..`), you can find the project circuits in the `"circuits"` folder. In case you modify the circuits, you can:
+Going back to the main folder (`cd ..`), you can find the project circuits in the *"circuits"* folder. In case you modify the circuits, you can:
 1) Compile the circuits by running:
 ```
 yarn compile_circ
@@ -63,7 +63,7 @@ yarn test_circ
 ```
 
 ### Smart Contracts:
-The smart contracts of zkCert can be found in the `"contracts"` folder. In case you modify any of the smart contracts, you can:
+The smart contracts of zkCert can be found in the *"contracts"* folder. In case you modify any of the smart contracts, you can:
 1) Compile the smart contracts by running:
 ```
 yarn compile
@@ -76,7 +76,7 @@ yarn test
 ```
 yarn deploy
 ```
-To deploy the smart contracts to a different network, you need to specify the network in `"hardhat.config.js"`, then pass the network to the deploy script. Make sure to also include your private key in a `".env"` file and pass it in the network specification (check `"hardhat.config.js"` for an example of network specification). For example to deploy to the Harmony Dev Net, you can:
+To deploy the smart contracts to a different network, you need to specify the network in *"hardhat.config.js"*, then pass the network to the deploy script. Make sure to also include your private key in a *".env"* file and pass it in the network specification (check *"hardhat.config.js"* for an example of network specification). For example to deploy to the Harmony Dev Net, you can:
 ```
 yarn deploy --network harmonyDevNet
 ```
