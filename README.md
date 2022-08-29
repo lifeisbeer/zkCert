@@ -10,7 +10,7 @@ This project is still in development. However an MVP is available. The [smart co
 
 You can use the application online by visiting: https://zk-cert.vercel.app/
 
-You will first be redirected to the welcome page. First you need to connect your wallet by clicking on the `"connect wallet"` button on the top right. In case you are not on the Harmony Dev Net, the button will turn into a `"switch network"` button. Clicking this, will add and switch your network to the Harmony Dev Net.
+You will first be redirected to the welcome page. First you need to connect your wallet by clicking on the `connect wallet` button on the top right. In case you are not on the Harmony Dev Net, the button will turn into a `switch network` button. Clicking this, will add and switch your network to the Harmony Dev Net.
 
 Then you can select your role within zkCert, this will give you access to the functionalities available for that role. There are three different roles: 
 1) Issuer of certificates, 
