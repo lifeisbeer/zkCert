@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div>
       <Head>
-        <title>zkSudoku - About</title>
+        <title>About</title>
         <meta name="title" content="zkCert - About" />
         <meta name="description" content="Digital certificates on blockchain using ZKPs" />
       </Head>
